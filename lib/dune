@@ -1,0 +1,7 @@
+(library
+ (name utils)
+ (modules utils))
+
+(library
+ (name mystring)
+ (modules mystring))
