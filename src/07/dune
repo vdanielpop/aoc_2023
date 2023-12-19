@@ -1,0 +1,11 @@
+(executable
+ (public_name 7.1)
+ (name part1)
+ (modules part1)
+ (libraries utils mystring))
+
+(executable
+ (public_name 7.2)
+ (name part2)
+ (modules part2)
+ (libraries utils mystring))
