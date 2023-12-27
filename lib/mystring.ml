@@ -16,3 +16,13 @@ let trim_split_on_char sep s =
 
   let len = String.length s in
   do_split s (len - 1) [] ""
+
+let find_opt s c =
+  let rec do_find c i =
+    match true with
+    | _ when i >= String.length s -> None
+    | _ when String.get s i = c -> Some i
+    | _ -> do_find c (i+1)
+  in
+
+  do_find c 0
