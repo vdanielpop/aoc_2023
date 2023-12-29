@@ -26,3 +26,8 @@ let find_opt s c =
   in
 
   do_find c 0
+
+let set s i c =
+  (String.sub s 0 i) ^
+  (String.make 1 c) ^
+  (String.sub s (i+1) ((String.length s) -i-1))
