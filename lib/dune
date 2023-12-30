@@ -10,3 +10,7 @@
 (library
  (name mylist)
  (modules mylist))
+
+(library
+ (name myarray)
+ (modules myarray))
