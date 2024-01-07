@@ -1,0 +1,4 @@
+profile=default
+
+nested-match=align
+cases-exp-indent=2
