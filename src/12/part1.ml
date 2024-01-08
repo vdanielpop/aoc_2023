@@ -36,6 +36,7 @@ let get_arrangements { str; len; list } =
   in
 
   let is_result_valid hash_key remaining =
+    (* print_endline ("Remaining " ^ remaining); *)
     String.contains remaining '#' = false
     && hashtbl_has visited hash_key = false
   in
@@ -45,7 +46,7 @@ let get_arrangements { str; len; list } =
 
     match list with
     | [] ->
-      if is_result_valid (String.sub str start nlen) hash_key then
+      if is_result_valid hash_key (String.sub str start nlen) then
         let _ = Hashtbl.add visited hash_key "1" in
         1
       else 0
@@ -64,6 +65,8 @@ let get_arrangements { str; len; list } =
         else
           do_get (start + hd + 1) str tl new_key
           + do_get (start + 1) str (hd :: tl) hash_key
+      else if Mystring.has_chars_in_order (String.sub str start hd) [ '#'; '.' ]
+      then 0
       else do_get (start + 1) str (hd :: tl) hash_key
   in
 
