@@ -36,12 +36,11 @@ let get_arrangements { str; len; list } =
   in
 
   let is_result_valid hash_key remaining =
-    (* print_endline ("Remaining " ^ remaining); *)
     String.contains remaining '#' = false
     && hashtbl_has visited hash_key = false
   in
 
-  let rec do_get start str list hash_key =
+  let rec do_get start list hash_key =
     let nlen = len - start in
 
     match list with
@@ -56,23 +55,22 @@ let get_arrangements { str; len; list } =
     | _ when nlen = hd ->
       if can_be_group str start hd then
         let hash_key = hash_key ^ "-" ^ string_of_int start in
-        do_get (start + hd) str tl hash_key
+        do_get (start + hd) tl hash_key
       else 0
     | _ ->
       if can_start_with_group str start hd then
         let new_key = hash_key ^ "-" ^ string_of_int start in
-        if str.[start] = '#' then do_get (start + hd + 1) str tl new_key
+        if str.[start] = '#' then do_get (start + hd + 1) tl new_key
         else
-          do_get (start + hd + 1) str tl new_key
-          + do_get (start + 1) str (hd :: tl) hash_key
+          do_get (start + hd + 1) tl new_key
+          + do_get (start + 1) (hd :: tl) hash_key
       else if Mystring.has_chars_in_order (String.sub str start hd) [ '#'; '.' ]
       then 0
-      else do_get (start + 1) str (hd :: tl) hash_key
+      else if str.[start] = '#' then 0
+      else do_get (start + 1) (hd :: tl) hash_key
   in
 
-  let res = do_get 0 str list "" in
-  (* Hashtbl.iter (fun x _ -> print_endline x) visited; *)
-  res
+  do_get 0 list ""
 in
 
 let rec parse_input lines =
